@@ -1,0 +1,15 @@
+:root {
+  --vermelho: #C0392B;
+  --vermelho-escuro: #A93226;
+  --vermelho-claro: #FADBD8;
+  --cinza-claro: #F9F9F9;
+  --cinza-medio: #F0F0F0;
+  --texto-escuro: #1A1A1A;
+  --texto-medio: #555555;
+  --texto-claro: #888888;
+  --branco: #FFFFFF;
+  --borda: #E8E8E8;
+  --sombra: 0 2px 16px rgba(0,0,0,0.08);
+  --raio: 12px;
+  --fonte: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
