@@ -1,0 +1,81 @@
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--branco);
+  border-bottom: 1px solid var(--borda);
+}
+
+.container {
+  width: 100%;
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--vermelho);
+  flex-shrink: 0;
+}
+
+.logoImagem {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.nav {
+  display: flex;
+  gap: 28px;
+  flex: 1;
+}
+
+.nav a {
+  font-size: 0.9rem;
+  color: var(--texto-medio);
+  transition: color 0.2s;
+}
+
+.nav a:hover {
+  color: var(--texto-escuro);
+}
+
+.linkAtivo {
+  color: var(--texto-escuro) !important;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.acoes {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btnEntrar {
+  font-size: 0.9rem;
+  color: var(--texto-escuro);
+  padding: 8px 16px;
+}
+
+.btnCadastrar {
+  font-size: 0.9rem;
+  background: var(--vermelho);
+  color: var(--branco);
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btnCadastrar:hover {
+  background: var(--vermelho-escuro);
+}
