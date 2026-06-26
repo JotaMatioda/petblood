@@ -1,0 +1,290 @@
+/* ===== HERO ===== */
+.hero {
+  padding: 80px 300px;
+  background: var(--branco);
+}
+
+.heroContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--vermelho-claro);
+  color: var(--vermelho);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  animation: pulsarBadge 3s ease-in-out infinite;
+}
+
+@keyframes pulsarBadge {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.75; }
+}
+
+.heroTitulo {
+  font-size: 2.6rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.destaque {
+  color: var(--vermelho);
+}
+
+.heroSubtitulo {
+  font-size: 1rem;
+  color: var(--texto-medio);
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.heroBotoes {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btnPrimario {
+  background: var(--vermelho);
+  color: var(--branco);
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.btnPrimario:hover {
+  background: var(--vermelho-escuro);
+}
+
+.btnSecundario {
+  background: var(--branco);
+  color: var(--texto-escuro);
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1.5px solid var(--borda);
+  transition: border-color 0.2s;
+}
+
+.btnSecundario:hover {
+  border-color: #aaa;
+}
+
+.cachorroImg {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  transform: rotate(3deg);
+  box-shadow: var(--sombra);
+  display: block;
+  margin: 0 auto;
+}
+
+/* ===== COMO FUNCIONA ===== */
+.comoFunciona {
+  padding: 80px 300px;
+  background: #FDF5F5;
+}
+
+.secaoContainer {
+  width: 100%;
+}
+
+.secaoCabecalho {
+  text-align: center;
+  margin-bottom: 52px;
+}
+
+.secaoTitulo {
+  font-size: 1.9rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.secaoSubtitulo {
+  color: var(--texto-medio);
+  font-size: 0.95rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: var(--branco);
+  border-radius: var(--raio);
+  padding: 28px;
+  border: 1px solid var(--borda);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardIcone {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.cardTitulo {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.cardDescricao {
+  font-size: 0.88rem;
+  color: var(--texto-medio);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.cardTag {
+  font-size: 0.78rem;
+  color: var(--vermelho);
+  font-weight: 600;
+}
+
+/* ===== SEGURANÇA ===== */
+.seguranca {
+  padding: 80px 300px;
+  background: var(--branco);
+}
+
+.segurancaContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.segurancaDescricao {
+  color: var(--texto-medio);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+  margin-top: 16px;
+}
+
+.segurancaLista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.segurancaLista li {
+  font-size: 0.9rem;
+  color: var(--texto-medio);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tabletImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+/* ===== CTA ===== */
+.ctaSecao {
+  padding: 80px 300px;
+  background: transparent;
+}
+
+.ctaBox {
+  background: var(--vermelho);
+  border-radius: 24px;
+  padding: 60px 48px;
+  text-align: center;
+}
+
+.ctaTitulo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--branco);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+
+.ctaDescricao {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 36px;
+}
+
+.ctaBotoes {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaBtnPrimario {
+  background: var(--branco);
+  color: var(--vermelho);
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+}
+
+.ctaBtnPrimario:hover {
+  opacity: 0.9;
+}
+
+.ctaBtnSecundario {
+  background: transparent;
+  color: var(--branco);
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: border-color 0.2s;
+}
+
+.ctaBtnSecundario:hover {
+  border-color: var(--branco);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 1024px) {
+  .hero, .comoFunciona, .seguranca, .ctaSecao {
+    padding: 60px 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroContainer, .segurancaContainer {
+    grid-template-columns: 1fr;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  .heroTitulo {
+    font-size: 1.8rem;
+  }
+}

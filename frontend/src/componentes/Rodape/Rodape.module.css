@@ -1,0 +1,43 @@
+.rodape {
+  padding: 24px;
+  border-top: 1px solid var(--borda);
+  background: var(--branco);
+}
+
+.container {
+  width: 100%;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.esquerda {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.logo {
+  font-weight: 700;
+  color: var(--vermelho);
+  font-size: 0.95rem;
+}
+
+.esquerda span:last-child {
+  font-size: 0.8rem;
+  color: var(--texto-claro);
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 0.78rem;
+  background: var(--cinza-medio);
+  color: var(--texto-medio);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
