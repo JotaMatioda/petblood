@@ -49,7 +49,7 @@ export default function Inicio() {
               de sangue.
             </p>
             <div className={styles.heroBotoes}>
-              <a href="/cadastro" className={styles.btnPrimario}>Cadastrar meu pet <PawPrint size={16} /></a>
+              <a href="/cadastrar-pet" className={styles.btnPrimario}>Cadastrar meu pet <PawPrint size={16} /></a>
               <a href="/veterinario" className={styles.btnSecundario}>Sou veterinário <BriefcaseMedical size={16} /></a>
             </div>
           </div>
