@@ -1,7 +1,7 @@
 import styles from './Inicio.module.css'
 import cachorro from '../assets/cachorro.png'
 import tablet from '../assets/tablet.png'
-import { LayoutGrid, Search, MessageCircle, CheckCircle2 } from 'lucide-react'
+import { LayoutGrid, Search, MessageCircle, CheckCircle2, PawPrint, BriefcaseMedical } from 'lucide-react'
 
 const passos = [
   {
@@ -49,8 +49,8 @@ export default function Inicio() {
               de sangue.
             </p>
             <div className={styles.heroBotoes}>
-              <a href="/cadastro" className={styles.btnPrimario}>Cadastrar meu pet 🐾</a>
-              <a href="/veterinario" className={styles.btnSecundario}>Sou veterinário ↗</a>
+              <a href="/cadastro" className={styles.btnPrimario}>Cadastrar meu pet <PawPrint size={16} /></a>
+              <a href="/veterinario" className={styles.btnSecundario}>Sou veterinário <BriefcaseMedical size={16} /></a>
             </div>
           </div>
           <div className={styles.heroImagem}>

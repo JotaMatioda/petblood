@@ -1,0 +1,325 @@
+.pagina {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F3F0ED;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--branco);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Formulário */
+.formularioWrapper {
+  padding: 48px 40px;
+  border-right: 1px solid var(--borda);
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--vermelho);
+}
+
+.logoImagem {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.bemVindo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.subtitulo {
+  font-size: 0.88rem;
+  color: var(--texto-medio);
+  margin-bottom: 28px;
+}
+
+.btnGoogle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1.5px solid var(--borda);
+  border-radius: 10px;
+  background: var(--branco);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--texto-escuro);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.btnGoogle:hover {
+  border-color: #aaa;
+}
+
+.divisor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--texto-claro);
+  font-size: 0.82rem;
+}
+
+.divisor::before,
+.divisor::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--borda);
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--texto-escuro);
+}
+
+.campo input {
+  padding: 10px 14px;
+  border: 1.5px solid var(--borda);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: var(--fonte);
+}
+
+.campo input:focus {
+  border-color: var(--vermelho);
+}
+
+.senhaLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.linkEsqueceu {
+  font-size: 0.82rem;
+  color: var(--vermelho);
+}
+
+.senhaWrapper {
+  position: relative;
+}
+
+.senhaWrapper input {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  border: 1.5px solid var(--borda);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: var(--fonte);
+}
+
+.senhaWrapper input:focus {
+  border-color: var(--vermelho);
+}
+
+.btnVerSenha {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--texto-claro);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+}
+
+.lembrar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--texto-medio);
+  cursor: pointer;
+}
+
+.btnEntrar {
+  width: 100%;
+  padding: 13px;
+  background: var(--vermelho);
+  color: var(--branco);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+
+.btnEntrar:hover {
+  background: var(--vermelho-escuro);
+}
+
+.semConta {
+  margin-top: 16px;
+  font-size: 0.85rem;
+  color: var(--texto-medio);
+  text-align: center;
+}
+
+.linkCadastro {
+  color: var(--vermelho);
+  font-weight: 600;
+}
+
+/* Painel de perfis */
+.painelPerfis {
+  padding: 48px 36px;
+  background: #FFF8F8;
+}
+
+.painelTitulo {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.perfis {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.perfilCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--borda);
+  background: var(--branco);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+
+.perfilCard:hover {
+  border-color: var(--vermelho-claro);
+}
+
+.perfilAtivo {
+  border-color: var(--vermelho) !important;
+}
+
+.perfilIcone {
+  width: 36px;
+  height: 36px;
+  background: var(--vermelho-claro);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.perfilTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.perfilTexto strong {
+  font-size: 0.9rem;
+  color: var(--texto-escuro);
+}
+
+.perfilTexto span {
+  font-size: 0.8rem;
+  color: var(--texto-medio);
+  line-height: 1.4;
+}
+
+.perfilCheck {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background: var(--vermelho);
+  color: var(--branco);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+/* Rodapé */
+.rodape {
+  padding: 16px 40px;
+  border-top: 1px solid var(--borda);
+  background: var(--branco);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--texto-claro);
+}
+
+.rodapeLinks {
+  display: flex;
+  gap: 20px;
+}
+
+.rodapeLinks a {
+  color: var(--texto-claro);
+  transition: color 0.2s;
+}
+
+.rodapeLinks a:hover {
+  color: var(--texto-escuro);
+}
+
+.rodapeSeguranca {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
