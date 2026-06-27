@@ -1,6 +1,7 @@
 import styles from './CadastrarPet.module.css'
 import logo from '../assets/LogoPetBlood.png'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   LayoutDashboard, PawPrint, History, Bell,
   Settings, HelpCircle, LogOut, ArrowLeft,
@@ -31,10 +32,10 @@ export default function CadastrarPet() {
 
       {/* Sidebar */}
       <aside className={styles.sidebar}>
-        <a href="/public" className={styles.logoLink}>
+        <Link to="/" className={styles.logoLink}>
           <img src={logo} alt="PetBlood" className={styles.logoImg} />
           <span className={styles.logoNome}>PetBlood</span>
-        </a>
+        </Link>
 
         <div className={styles.usuario}>
           <div className={styles.usuarioAvatar}>JS</div>
@@ -45,31 +46,30 @@ export default function CadastrarPet() {
         </div>
 
         <nav className={styles.nav}>
-          <a href="/dashboard" className={styles.navItem}>
+          <Link to="/dashboard" className={styles.navItem}>
             <LayoutDashboard size={18} /> Dashboard
-          </a>
-          <a href="/meus-pets" className={`${styles.navItem} ${styles.navAtivo}`}>
+          </Link>
+          <Link to="/meus-pets" className={`${styles.navItem} ${styles.navAtivo}`}>
             <PawPrint size={18} /> Meus pets
-          </a>
-          <a href="/historico" className={styles.navItem}>
+          </Link>
+          <Link to="/historico" className={styles.navItem}>
             <History size={18} /> Histórico
-          </a>
-          <a href="/notificacoes" className={styles.navItem}>
+          </Link>
+          <Link to="/notificacoes" className={styles.navItem}>
             <Bell size={18} /> Notificações
-            <span className={styles.badge}>2</span>
-          </a>
-          <a href="/configuracoes" className={styles.navItem}>
+          </Link>
+          <Link to="/configuracoes" className={styles.navItem}>
             <Settings size={18} /> Configurações
-          </a>
+          </Link>
         </nav>
 
         <div className={styles.sidebarRodape}>
-          <a href="/suporte" className={styles.navItem}>
+          <Link to="/suporte" className={styles.navItem}>
             <HelpCircle size={18} /> Suporte
-          </a>
-          <a href="/public" className={`${styles.navItem} ${styles.sair}`}>
+          </Link>
+          <Link to="/" className={`${styles.navItem} ${styles.sair}`}>
             <LogOut size={18} /> Sair
-          </a>
+          </Link>
         </div>
       </aside>
 
@@ -77,9 +77,9 @@ export default function CadastrarPet() {
       <main className={styles.main}>
         {/* Cabeçalho da página */}
         <div className={styles.paginaCabecalho}>
-          <a href="/meus-pets" className={styles.btnVoltar}>
+          <Link to="/meus-pets" className={styles.btnVoltar}>
             <ArrowLeft size={20} />
-          </a>
+          </Link>
           <div>
             <h1 className={styles.titulo}>Cadastrar Novo Pet</h1>
             <p className={styles.subtitulo}>Adicione as informações básicas e clínicas do seu pet para começar.</p>
