@@ -1,12 +1,11 @@
 .rodape {
-  padding: 24px;
+  padding: 24px 48px;
   border-top: 1px solid var(--borda);
   background: var(--branco);
 }
 
 .container {
   width: 100%;
-  padding: 0 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,17 +13,29 @@
 
 .esquerda {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 16px;
 }
 
-.logo {
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logoImagem {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.logoTexto {
   font-weight: 700;
   color: var(--vermelho);
   font-size: 0.95rem;
 }
 
-.esquerda span:last-child {
+.copyright {
   font-size: 0.8rem;
   color: var(--texto-claro);
 }

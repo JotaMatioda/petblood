@@ -53,6 +53,9 @@
 }
 
 .btnPrimario {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: var(--vermelho);
   color: var(--branco);
   padding: 14px 24px;
@@ -67,6 +70,9 @@
 }
 
 .btnSecundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   background: var(--branco);
   color: var(--texto-escuro);
   padding: 14px 24px;

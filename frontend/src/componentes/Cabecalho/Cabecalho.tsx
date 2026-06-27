@@ -10,10 +10,10 @@ export default function Cabecalho() {
           <span>PetBlood</span>
         </a>
         <nav className={styles.nav}>
-          <a href="/" className={styles.linkAtivo}>Landing</a>
+          <a href="/" className={styles.linkAtivo}>Início</a>
           <a href="/tutor">Tutor</a>
-          <a href="/veterinario">Vet</a>
-          <a href="/clinica">Clinic</a>
+          <a href="/veterinario">Veterinário</a>
+          <a href="/clinica">Clínica</a>
         </nav>
         <div className={styles.acoes}>
           <a href="/entrar" className={styles.btnEntrar}>Entrar</a>
