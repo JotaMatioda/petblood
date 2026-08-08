@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.nome {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--texto-escuro);
+}
+
+.btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--borda);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texto-medio);
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+  transition: border-color 0.2s;
+  flex-shrink: 0;
+}
+
+.btn:hover {
+  border-color: var(--vermelho);
+}
+
+.foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}

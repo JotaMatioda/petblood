@@ -48,7 +48,7 @@
 }
 
 .linkAtivo {
-  color: var(--texto-escuro) !important;
+  color: var(--vermelho) !important;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -78,4 +78,125 @@
 
 .btnCadastrar:hover {
   background: var(--vermelho-escuro);
+}
+
+/* ===== PERFIL LOGADO ===== */
+.perfilWrapper {
+  position: relative;
+}
+
+.perfilBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid var(--borda);
+  border-radius: 24px;
+  padding: 5px 12px 5px 5px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.perfilBtn:hover {
+  background: var(--cinza-claro);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background: var(--vermelho);
+  color: var(--branco);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.perfilNome {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--texto-escuro);
+}
+
+.chevronAberto {
+  transform: rotate(180deg);
+  transition: transform 0.2s;
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  z-index: 200;
+  overflow: hidden;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+}
+
+.avatarGrande {
+  width: 40px;
+  height: 40px;
+  background: var(--vermelho);
+  color: var(--branco);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.dropdownHeader strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--texto-escuro);
+}
+
+.dropdownHeader span {
+  font-size: 0.78rem;
+  color: var(--texto-medio);
+}
+
+.dropdownDivisor {
+  height: 1px;
+  background: var(--borda);
+  margin: 0 12px;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 0.88rem;
+  color: var(--texto-escuro);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+  text-align: left;
+}
+
+.dropdownItem:hover {
+  background: var(--cinza-claro);
+}
+
+.dropdownSair {
+  color: var(--vermelho);
 }
