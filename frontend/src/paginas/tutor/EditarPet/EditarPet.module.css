@@ -1,0 +1,156 @@
+/* Reutiliza mesma estrutura do CadastrarPet */
+.pagina { display: flex; min-height: 100vh; background: #F3F0ED; }
+
+.main {
+  flex: 1;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.cabecalho { display: flex; align-items: center; }
+
+.btnVoltar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--texto-medio);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.btnVoltar:hover { background: #E8E0D8; color: var(--texto-escuro); }
+
+.tituloArea { }
+.titulo { font-size: 1.5rem; font-weight: 800; color: var(--texto-escuro); }
+.subtitulo { font-size: 0.88rem; color: var(--texto-medio); margin-top: 4px; }
+
+.conteudo { display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: start; }
+.colunaEsquerda { display: flex; flex-direction: column; gap: 20px; }
+.colunaDireita { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; }
+
+.card {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.cardTitulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--texto-escuro);
+}
+
+.gridQuadruplo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.colSpan2 { grid-column: span 2; }
+
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo label { font-size: 0.8rem; font-weight: 600; color: var(--texto-medio); }
+.campo input, .campo select {
+  padding: 10px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--texto-escuro);
+  background: var(--branco);
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.campo input:focus, .campo select:focus { border-color: var(--vermelho); }
+
+.selectWrapper { position: relative; }
+.selectWrapper select { appearance: none; padding-right: 36px; cursor: pointer; }
+.selectIcone { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--texto-medio); pointer-events: none; }
+
+.tiposGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.tipoBotao {
+  padding: 8px 4px;
+  border: 1.5px solid var(--borda);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--texto-medio);
+  background: var(--branco);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+.tipoBotaoAtivo { border-color: var(--vermelho); background: #FFF0F0; color: var(--vermelho); }
+
+.vacinasLista { display: flex; flex-direction: column; gap: 10px; }
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--texto-escuro);
+  cursor: pointer;
+}
+.checkboxLabel input { accent-color: var(--vermelho); width: 16px; height: 16px; cursor: pointer; }
+
+.cardSalvar { gap: 12px; }
+.cardSalvar strong { font-size: 0.95rem; color: var(--texto-escuro); }
+.cardSalvar p { font-size: 0.82rem; color: var(--texto-medio); line-height: 1.5; }
+
+.btnSalvar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background: var(--vermelho);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btnSalvar:hover:not(:disabled) { background: #a93226; }
+.btnSalvar:disabled { background: #E5E0DA; color: #aaa; cursor: not-allowed; }
+
+.btnCancelar {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  color: var(--texto-medio);
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btnCancelar:hover { background: #F3F0ED; }
+
+.erro {
+  background: #FFF0F0;
+  border: 1px solid #FFCCCC;
+  border-radius: 8px;
+  color: var(--vermelho);
+  font-size: 0.85rem;
+  padding: 10px 14px;
+}

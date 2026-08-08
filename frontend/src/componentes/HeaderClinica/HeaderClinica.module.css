@@ -1,0 +1,43 @@
+.header {
+  height: 60px;
+  background: var(--branco);
+  border-bottom: 1px solid var(--borda);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  flex-shrink: 0;
+}
+
+.spacer { flex: 1; }
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nomeClinica {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--texto-escuro);
+}
+
+.btnPerfil {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: none;
+  border: 1px solid var(--borda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texto-medio);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btnPerfil:hover {
+  background: #FFF0F0;
+  color: var(--vermelho);
+  border-color: #FFCCCC;
+}

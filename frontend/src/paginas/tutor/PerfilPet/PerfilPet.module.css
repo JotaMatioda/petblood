@@ -1,0 +1,250 @@
+.pagina { display: flex; min-height: 100vh; background: #F3F0ED; }
+
+.main {
+  flex: 1;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btnVoltar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: var(--texto-medio);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+}
+.btnVoltar:hover { background: #E8E0D8; color: var(--texto-escuro); }
+
+.acoes { display: flex; gap: 8px; }
+
+.btnAcao {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--branco);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-escuro);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btnAcao:hover { background: #F3F0ED; }
+.btnPerigo { color: #C0392B; border-color: #FFCCCC; background: #FFF0F0; }
+.btnPerigo:hover { background: #FFE0E0; }
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.coluna { display: flex; flex-direction: column; gap: 16px; }
+
+/* AVATAR CARD */
+.cardAvatar {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  position: sticky;
+  top: 24px;
+}
+
+.avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+
+.avatarFoto {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 4px;
+}
+
+.petNome { font-size: 1.2rem; font-weight: 800; color: var(--texto-escuro); }
+.petEspecie { font-size: 0.85rem; color: var(--texto-medio); }
+
+.statusBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.statusPonto {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tipoBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF0F0;
+  color: var(--vermelho);
+  border: 1px solid #FFCCCC;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+/* CARDS */
+.card {
+  background: var(--branco);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cardTitulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--texto-escuro);
+}
+
+.camposGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 0;
+}
+
+.campo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--borda);
+}
+.camposGrid .campo:nth-last-child(-n+2) { border-bottom: none; }
+
+.campoIcone {
+  width: 32px;
+  height: 32px;
+  background: #FFF0F0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--vermelho);
+  flex-shrink: 0;
+}
+
+.campo span { font-size: 0.75rem; color: var(--texto-medio); display: block; }
+.campo strong { font-size: 0.9rem; color: var(--texto-escuro); display: block; margin-top: 2px; }
+
+/* VACINAÇÃO */
+.semDados { font-size: 0.85rem; color: var(--texto-medio); }
+
+.vacinaLista { display: flex; flex-direction: column; gap: 8px; }
+
+.vacinaItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--texto-escuro);
+}
+
+.vacinaCheck {
+  width: 22px;
+  height: 22px;
+  background: #F0FDF4;
+  border: 1px solid #86EFAC;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #16A34A;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* DOAÇÕES */
+.doacaoStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.doacaoStat {
+  text-align: center;
+  padding: 12px;
+  background: #FAFAFA;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+}
+
+.doacaoStat strong { display: block; font-size: 1.4rem; font-weight: 800; color: var(--texto-escuro); }
+.doacaoStat span  { font-size: 0.72rem; color: var(--texto-medio); }
+
+.btnHistorico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: var(--branco);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--texto-escuro);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btnHistorico:hover { background: #F3F0ED; }
+
+.centralizador {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+}
