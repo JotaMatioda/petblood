@@ -39,12 +39,19 @@ function gerarId(lista: Bolsa[]) {
   return `#PB-${new Date().getFullYear()}-${num}`
 }
 
+function chaveBolsas() {
+  try {
+    const u = JSON.parse(localStorage.getItem('usuario') ?? '{}')
+    return `petblood_bolsas_${u.id ?? 'guest'}`
+  } catch { return 'petblood_bolsas_guest' }
+}
+
 export function carregarBolsas(): Bolsa[] {
-  try { return JSON.parse(localStorage.getItem('petblood_bolsas') ?? '[]') } catch { return [] }
+  try { return JSON.parse(localStorage.getItem(chaveBolsas()) ?? '[]') } catch { return [] }
 }
 
 export function salvarBolsas(lista: Bolsa[]) {
-  localStorage.setItem('petblood_bolsas', JSON.stringify(lista))
+  localStorage.setItem(chaveBolsas(), JSON.stringify(lista))
 }
 
 export function adicionarBolsa(bolsa: Omit<Bolsa, 'id'>) {
