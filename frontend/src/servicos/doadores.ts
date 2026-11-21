@@ -11,18 +11,25 @@ export type PetDoador = {
   lng: number
 }
 
+function chaveDoadores() {
+  try {
+    const u = JSON.parse(localStorage.getItem('usuario') ?? '{}')
+    return `petblood_doadores_${u.id ?? 'guest'}`
+  } catch { return 'petblood_doadores_guest' }
+}
+
 export function carregarDoadores(): PetDoador[] {
-  try { return JSON.parse(localStorage.getItem('petblood_doadores') ?? '[]') } catch { return [] }
+  try { return JSON.parse(localStorage.getItem(chaveDoadores()) ?? '[]') } catch { return [] }
 }
 
 export function salvarDoador(d: PetDoador) {
   const lista = carregarDoadores().filter(x => String(x.petId) !== String(d.petId))
-  localStorage.setItem('petblood_doadores', JSON.stringify([...lista, d]))
+  localStorage.setItem(chaveDoadores(), JSON.stringify([...lista, d]))
 }
 
 export function removerDoador(petId: number | string) {
   const lista = carregarDoadores().filter(x => String(x.petId) !== String(petId))
-  localStorage.setItem('petblood_doadores', JSON.stringify(lista))
+  localStorage.setItem(chaveDoadores(), JSON.stringify(lista))
 }
 
 // Haversine — retorna distância em km entre dois pontos lat/lng
