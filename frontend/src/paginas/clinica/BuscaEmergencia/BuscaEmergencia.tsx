@@ -261,7 +261,7 @@ export default function BuscaEmergencia() {
                 {/* Marcador da clínica */}
                 <Marker position={centro} icon={iconeClinica}>
                   <Popup>
-                    <strong>🏥 {usuario?.nome ?? 'Minha Clínica'}</strong><br />
+                    <strong>🏥 Minha Clínica</strong><br />
                     {enderecoClin || 'Unidade solicitante'}
                   </Popup>
                 </Marker>
