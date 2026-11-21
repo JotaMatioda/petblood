@@ -21,6 +21,7 @@ import BuscaEmergencia from './paginas/clinica/BuscaEmergencia/BuscaEmergencia.t
 import NovaEntradaBolsa from './paginas/clinica/NovaEntradaBolsa/NovaEntradaBolsa.tsx'
 import DetalhesBolsa from './paginas/clinica/DetalhesBolsa/DetalhesBolsa.tsx'
 import EditarBolsa from './paginas/clinica/EditarBolsa/EditarBolsa.tsx'
+import Doacoes from './paginas/clinica/Doacoes/Doacoes.tsx'
 import PerfilPet from './paginas/tutor/PerfilPet/PerfilPet.tsx'
 import EditarPet from './paginas/tutor/EditarPet/EditarPet.tsx'
 import HistoricoPet from './paginas/tutor/HistoricoPet/HistoricoPet.tsx'
@@ -50,6 +51,7 @@ function App() {
       <Route path="/clinica/nova-bolsa" element={<RotaClinica><NovaEntradaBolsa /></RotaClinica>} />
       <Route path="/clinica/bolsas/:id" element={<RotaClinica><DetalhesBolsa /></RotaClinica>} />
       <Route path="/clinica/bolsas/:id/editar" element={<RotaClinica><EditarBolsa /></RotaClinica>} />
+      <Route path="/clinica/doacoes" element={<RotaClinica><Doacoes /></RotaClinica>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
