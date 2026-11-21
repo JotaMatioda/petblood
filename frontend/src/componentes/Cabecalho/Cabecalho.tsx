@@ -41,9 +41,12 @@ export default function Cabecalho() {
         </Link>
         <nav className={styles.nav}>
           <Link to="/" className={styles.linkAtivo}>Início</Link>
-          <Link to={autenticado ? '/dashboard' : '/entrar'}>Tutor</Link>
-          <a href="/veterinario">Veterinário</a>
-          <Link to={autenticado ? '/clinica/inventario' : '/entrar?redirect=/clinica/inventario'}>Clínica</Link>
+          {(!autenticado || usuario?.perfil === 'TUTOR') && (
+            <Link to={autenticado ? '/dashboard' : '/entrar'}>Tutor</Link>
+          )}
+          {(!autenticado || usuario?.perfil === 'CLINICA' || usuario?.perfil === 'VETERINARIO') && (
+            <Link to={autenticado ? '/clinica/inventario' : '/entrar?redirect=/clinica/inventario'}>Clínica</Link>
+          )}
         </nav>
 
         <div className={styles.acoes}>
@@ -68,8 +71,12 @@ export default function Cabecalho() {
                     </div>
                   </div>
                   <div className={styles.dropdownDivisor} />
-                  <Link to="/dashboard" className={styles.dropdownItem} onClick={() => setMenuAberto(false)}>
-                    <LayoutDashboard size={16} /> Dashboard
+                  <Link
+                    to={usuario?.perfil === 'CLINICA' || usuario?.perfil === 'VETERINARIO' ? '/clinica/inventario' : '/dashboard'}
+                    className={styles.dropdownItem}
+                    onClick={() => setMenuAberto(false)}
+                  >
+                    <LayoutDashboard size={16} /> {usuario?.perfil === 'CLINICA' || usuario?.perfil === 'VETERINARIO' ? 'Painel' : 'Dashboard'}
                   </Link>
                   <button className={`${styles.dropdownItem} ${styles.dropdownSair}`} onClick={handleLogout}>
                     <LogOut size={16} /> Sair
