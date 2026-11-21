@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Cabecalho from './componentes/Cabecalho/Cabecalho'
 import Rodape from './componentes/Rodape/Rodape'
-import RotaProtegida from './componentes/RotaProtegida'
+import RotaProtegida, { RotaClinica, RotaTutor } from './componentes/RotaProtegida'
 import Inicio from './paginas/Inicio/Inicio/Inicio.tsx'
 import Login from './paginas/Inicio/Login/Login.tsx'
 import Cadastro from './paginas/Inicio/Cadastro/Cadastro.tsx'
@@ -31,25 +31,25 @@ function App() {
       <Route path="/" element={<><Cabecalho /><Inicio /><Rodape /></>} />
       <Route path="/entrar" element={<Login />} />
       <Route path="/cadastro" element={<Cadastro />} />
-      <Route path="/dashboard" element={<RotaProtegida><Dashboard /></RotaProtegida>} />
-      <Route path="/meus-pets" element={<RotaProtegida><MeusPets /></RotaProtegida>} />
-      <Route path="/cadastrar-pet" element={<RotaProtegida><CadastrarPet /></RotaProtegida>} />
-      <Route path="/historico" element={<RotaProtegida><Historico /></RotaProtegida>} />
-      <Route path="/notificacoes" element={<RotaProtegida><Notificacoes /></RotaProtegida>} />
-      <Route path="/configuracoes" element={<RotaProtegida><Configuracoes /></RotaProtegida>} />
-      <Route path="/clinica/inventario" element={<RotaProtegida><Inventario /></RotaProtegida>} />
-      <Route path="/clinica/solicitacoes" element={<RotaProtegida><Solicitacoes /></RotaProtegida>} />
-      <Route path="/clinica/nova-solicitacao" element={<RotaProtegida><NovaSolicitacao /></RotaProtegida>} />
-      <Route path="/clinica/solicitacoes/:id" element={<RotaProtegida><DetalhesSolicitacao /></RotaProtegida>} />
-      <Route path="/clinica/solicitacoes/:id/editar" element={<RotaProtegida><EditarSolicitacao /></RotaProtegida>} />
-      <Route path="/clinica/configuracoes" element={<RotaProtegida><ConfiguracoesClinica /></RotaProtegida>} />
-      <Route path="/clinica/busca" element={<RotaProtegida><BuscaEmergencia /></RotaProtegida>} />
-      <Route path="/clinica/nova-bolsa" element={<RotaProtegida><NovaEntradaBolsa /></RotaProtegida>} />
-      <Route path="/clinica/bolsas/:id" element={<RotaProtegida><DetalhesBolsa /></RotaProtegida>} />
-      <Route path="/clinica/bolsas/:id/editar" element={<RotaProtegida><EditarBolsa /></RotaProtegida>} />
-      <Route path="/pets/:id" element={<RotaProtegida><PerfilPet /></RotaProtegida>} />
-      <Route path="/pets/:id/editar" element={<RotaProtegida><EditarPet /></RotaProtegida>} />
-      <Route path="/pets/:id/historico" element={<RotaProtegida><HistoricoPet /></RotaProtegida>} />
+      <Route path="/dashboard" element={<RotaTutor><Dashboard /></RotaTutor>} />
+      <Route path="/meus-pets" element={<RotaTutor><MeusPets /></RotaTutor>} />
+      <Route path="/cadastrar-pet" element={<RotaTutor><CadastrarPet /></RotaTutor>} />
+      <Route path="/historico" element={<RotaTutor><Historico /></RotaTutor>} />
+      <Route path="/notificacoes" element={<RotaTutor><Notificacoes /></RotaTutor>} />
+      <Route path="/configuracoes" element={<RotaTutor><Configuracoes /></RotaTutor>} />
+      <Route path="/pets/:id" element={<RotaTutor><PerfilPet /></RotaTutor>} />
+      <Route path="/pets/:id/editar" element={<RotaTutor><EditarPet /></RotaTutor>} />
+      <Route path="/pets/:id/historico" element={<RotaTutor><HistoricoPet /></RotaTutor>} />
+      <Route path="/clinica/inventario" element={<RotaClinica><Inventario /></RotaClinica>} />
+      <Route path="/clinica/solicitacoes" element={<RotaClinica><Solicitacoes /></RotaClinica>} />
+      <Route path="/clinica/nova-solicitacao" element={<RotaClinica><NovaSolicitacao /></RotaClinica>} />
+      <Route path="/clinica/solicitacoes/:id" element={<RotaClinica><DetalhesSolicitacao /></RotaClinica>} />
+      <Route path="/clinica/solicitacoes/:id/editar" element={<RotaClinica><EditarSolicitacao /></RotaClinica>} />
+      <Route path="/clinica/configuracoes" element={<RotaClinica><ConfiguracoesClinica /></RotaClinica>} />
+      <Route path="/clinica/busca" element={<RotaClinica><BuscaEmergencia /></RotaClinica>} />
+      <Route path="/clinica/nova-bolsa" element={<RotaClinica><NovaEntradaBolsa /></RotaClinica>} />
+      <Route path="/clinica/bolsas/:id" element={<RotaClinica><DetalhesBolsa /></RotaClinica>} />
+      <Route path="/clinica/bolsas/:id/editar" element={<RotaClinica><EditarBolsa /></RotaClinica>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
