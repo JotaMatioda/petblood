@@ -1,6 +1,6 @@
 import styles from './Cadastro.module.css'
 import logo from '../../../assets/LogoPetBlood.png'
-import { PawPrint, BriefcaseMedical, LayoutGrid, ArrowRight, Info } from 'lucide-react'
+import { PawPrint, LayoutGrid, ArrowRight, Info } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { cadastrar } from '../../../servicos/auth.ts'
@@ -11,12 +11,6 @@ const perfis = [
     titulo: 'Tutor',
     valor: 'TUTOR',
     descricao: 'Quero cadastrar meus pets e encontrar doadores.',
-  },
-  {
-    icone: <BriefcaseMedical size={18} color="#6B7280" />,
-    titulo: 'Veterinário',
-    valor: 'VETERINARIO',
-    descricao: 'Quero solicitar bolsas e gerenciar emergências.',
   },
   {
     icone: <LayoutGrid size={18} color="#6B7280" />,
@@ -50,14 +44,14 @@ export default function Cadastro() {
     }
     setCarregando(true)
     try {
-      await cadastrar({
+      const usuario = await cadastrar({
         nome,
         email,
         senha,
         perfil: perfis[perfilSelecionado].valor,
         cpfCnpj: cpfCnpj || undefined,
       })
-      navigate('/dashboard')
+      navigate(usuario.perfil === 'CLINICA' ? '/clinica/inventario' : '/dashboard')
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { mensagem?: string; message?: string } } }
       const d = axiosErr.response?.data
@@ -83,10 +77,10 @@ export default function Cadastro() {
 
             <form className={styles.formulario} onSubmit={handleSubmit}>
               <div className={styles.campo}>
-                <label>{perfilSelecionado === 2 ? 'Nome da Clínica/Banco' : 'Nome Completo'}</label>
+                <label>{perfilSelecionado === 1 ? 'Nome da Clínica/Banco' : 'Nome Completo'}</label>
                 <input
                   type="text"
-                  placeholder={perfilSelecionado === 2 ? 'Ex: Clínica VetCare' : 'Ex: Maria Silva'}
+                  placeholder={perfilSelecionado === 1 ? 'Ex: Clínica VetCare' : 'Ex: Maria Silva'}
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   required
@@ -94,11 +88,11 @@ export default function Cadastro() {
               </div>
 
               <div className={styles.campo}>
-                <label>{perfilSelecionado === 2 ? 'CNPJ' : 'CPF'}</label>
+                <label>{perfilSelecionado === 1 ? 'CNPJ' : 'CPF'}</label>
                 <input
                   type="text"
-                  placeholder={perfilSelecionado === 2 ? '00.000.000/0001-00' : '000.000.000-00'}
-                  maxLength={perfilSelecionado === 2 ? 18 : 14}
+                  placeholder={perfilSelecionado === 1 ? '00.000.000/0001-00' : '000.000.000-00'}
+                  maxLength={perfilSelecionado === 1 ? 18 : 14}
                   value={cpfCnpj}
                   onChange={(e) => setCpfCnpj(e.target.value)}
                 />

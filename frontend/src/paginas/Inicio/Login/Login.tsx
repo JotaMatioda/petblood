@@ -1,6 +1,6 @@
 import styles from './Login.module.css'
 import logo from '../../../assets/LogoPetBlood.png'
-import { User, BriefcaseMedical, Building2, Eye, EyeOff, Lock } from 'lucide-react'
+import { User, Building2, Eye, EyeOff, Lock } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { login } from '../../../servicos/auth.ts'
@@ -10,11 +10,6 @@ const perfis = [
     icone: <User size={20} color="#C0392B" />,
     titulo: 'Tutor',
     descricao: 'Dono de pet herói. Gerencie o histórico de doações, agende coletas e receba alertas de urgência.',
-  },
-  {
-    icone: <BriefcaseMedical size={20} color="#C0392B" />,
-    titulo: 'Veterinário',
-    descricao: 'Profissional autônomo. Solicite bolsas de sangue, verifique compatibilidade e acompanhe seus pacientes.',
   },
   {
     icone: <Building2 size={20} color="#C0392B" />,
@@ -32,15 +27,16 @@ export default function Login() {
   const [carregando, setCarregando] = useState(false)
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const redirectTo = searchParams.get('redirect') ?? '/dashboard'
+  const redirectTo = searchParams.get('redirect')
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setErro('')
     setCarregando(true)
     try {
-      await login(email, senha)
-      navigate(redirectTo)
+      const usuario = await login(email, senha)
+      const destino = redirectTo ?? (usuario.perfil === 'CLINICA' || usuario.perfil === 'VETERINARIO' ? '/clinica/inventario' : '/dashboard')
+      navigate(destino)
     } catch (err: unknown) {
       const axiosErr = err as { response?: { data?: { mensagem?: string; message?: string } } }
       const d = axiosErr.response?.data
