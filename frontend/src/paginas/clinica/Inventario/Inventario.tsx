@@ -5,7 +5,7 @@ import SidebarClinica from '../../../componentes/SidebarClinica/SidebarClinica.t
 import PerfilHeaderBtn from '../../../componentes/PerfilHeaderBtn/PerfilHeaderBtn.tsx'
 import {
   Plus, Filter, Download, MoreVertical,
-  Search, User, PackageOpen, Droplets,
+  Search, PackageOpen, Droplets,
   Eye, Pencil, Trash2
 } from 'lucide-react'
 

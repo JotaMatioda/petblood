@@ -13,7 +13,6 @@ const TIPOS_FELINO = ['Tipo A', 'Tipo B', 'Tipo AB']
 
 export default function NovaEntradaBolsa() {
   const navigate = useNavigate()
-  const usuario = getUsuario()
 
   const [especie, setEspecie] = useState<'CANINO' | 'FELINO'>('CANINO')
   const [tipoSanguineo, setTipoSanguineo] = useState('')
