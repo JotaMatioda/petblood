@@ -1,0 +1,8 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "java -jar backend/target/*.jar"
+healthcheckPath = "/api/actuator/health"
+healthcheckTimeout = 100
+restartPolicyType = "ON_FAILURE"
