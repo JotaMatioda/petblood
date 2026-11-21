@@ -7,7 +7,7 @@ import SidebarClinica from '../../../componentes/SidebarClinica/SidebarClinica.t
 import PerfilHeaderBtn from '../../../componentes/PerfilHeaderBtn/PerfilHeaderBtn.tsx'
 import { carregarDoadores, distanciaKm } from '../../../servicos/doadores.ts'
 import {
-  AlertCircle, Search, Info, MoreVertical,
+  AlertCircle, Search, Info,
   MessageCircle, ChevronDown, X, Users
 } from 'lucide-react'
 
@@ -68,6 +68,17 @@ type Doador = {
   lat: number
   lng: number
   selecionado: boolean
+}
+
+function abrirWhatsApp(telefone: string, mensagem: string) {
+  const num = telefone.replace(/\D/g, '')
+  const numero = num.startsWith('55') ? num : `55${num}`
+  window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`, '_blank')
+}
+
+function mensagemEmergencia(doadorNome: string, tipo: string) {
+  const clinicaNome = localStorage.getItem('petblood_clinica_nome') ?? 'nossa clínica'
+  return `Olá! Sou da ${clinicaNome} e estamos com uma emergência de sangue tipo ${tipo}. Seu pet *${doadorNome}* é um doador compatível. Poderia comparecer o mais rápido possível? Obrigado! 🐾`
 }
 
 // Fallback: São Paulo centro
@@ -323,8 +334,13 @@ export default function BuscaEmergencia() {
                   )}
                 </div>
                 {selecionados.length > 0 && (
-                  <button className={styles.btnAlertar}>
-                    <MessageCircle size={16} /> Alertar selecionados ({selecionados.length})
+                  <button
+                    className={styles.btnAlertar}
+                    onClick={() => selecionados.forEach(d => {
+                      if (d.contato) abrirWhatsApp(d.contato, mensagemEmergencia(d.nome, tipoSanguineo))
+                    })}
+                  >
+                    <MessageCircle size={16} /> Alertar via WhatsApp ({selecionados.length})
                   </button>
                 )}
               </div>
@@ -368,7 +384,14 @@ export default function BuscaEmergencia() {
                 <span className={styles.celula}>{d.peso}</span>
                 <span className={styles.celula}>{d.contato}</span>
                 <span className={`${styles.celula} ${styles.distancia}`}>{d.distancia}</span>
-                <button className={styles.btnMenu}><MoreVertical size={16} /></button>
+                <button
+                  className={styles.btnWhatsapp}
+                  title={d.contato ? `Contatar via WhatsApp: ${d.contato}` : 'Sem contato cadastrado'}
+                  disabled={!d.contato}
+                  onClick={() => d.contato && abrirWhatsApp(d.contato, mensagemEmergencia(d.nome, tipoSanguineo))}
+                >
+                  <MessageCircle size={16} />
+                </button>
               </div>
             ))}
           </div>

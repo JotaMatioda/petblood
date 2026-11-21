@@ -4,7 +4,7 @@ import SidebarClinica from '../../../componentes/SidebarClinica/SidebarClinica.t
 import { getUsuario } from '../../../servicos/auth.ts'
 import {
   User, Lock, Bell, Shield, Save, Eye, EyeOff,
-  Building2, Mail, MapPin, CheckCircle2, Camera
+  Building2, Mail, MapPin, CheckCircle2, Camera, MessageCircle
 } from 'lucide-react'
 
 type Aba = 'perfil' | 'seguranca' | 'notificacoes'
@@ -35,6 +35,7 @@ export default function Configuracoes() {
   const [nome, setNome] = useState(usuario?.nome ?? '')
   const [email] = useState(usuario?.email ?? '')
   const [telefone, setTelefone] = useState(localStorage.getItem('petblood_clinica_telefone') ?? '')
+  const [whatsapp, setWhatsapp] = useState(localStorage.getItem('petblood_clinica_whatsapp') ?? '')
   const [crmv, setCrmv] = useState(localStorage.getItem('petblood_clinica_crmv') ?? '')
   const [cep, setCep]           = useState(localStorage.getItem('petblood_clinica_cep') ?? '')
   const [estado, setEstado]     = useState(localStorage.getItem('petblood_clinica_estado') ?? '')
@@ -58,6 +59,7 @@ export default function Configuracoes() {
 
   function salvar() {
     localStorage.setItem('petblood_clinica_telefone', telefone)
+    localStorage.setItem('petblood_clinica_whatsapp', whatsapp)
     localStorage.setItem('petblood_clinica_crmv', crmv)
     localStorage.setItem('petblood_clinica_cep', cep)
     localStorage.setItem('petblood_clinica_estado', estado)
@@ -156,6 +158,15 @@ export default function Configuracoes() {
                         <label>Telefone</label>
                         <input value={telefone} onChange={e => setTelefone(e.target.value)} placeholder="Ex: (11) 99999-9999" />
                       </div>
+                    </div>
+                    <div className={styles.campo}>
+                      <label><MessageCircle size={14} style={{ display: 'inline', marginRight: 4 }} />WhatsApp da Clínica</label>
+                      <input
+                        value={whatsapp}
+                        onChange={e => setWhatsapp(e.target.value)}
+                        placeholder="Ex: 5511999999999 (com código do país)"
+                      />
+                      <span className={styles.campoHint}>Usado para tutores responderem alertas de emergência via WhatsApp.</span>
                     </div>
                   </div>
 

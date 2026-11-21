@@ -320,6 +320,23 @@
   background: var(--vermelho-escuro);
 }
 
+.btnWhatsapp {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #25D366;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnWhatsapp:hover { background: #1ebe5a; }
+
 .btnSecundario {
   padding: 8px 20px;
   border: 1.5px solid var(--borda);

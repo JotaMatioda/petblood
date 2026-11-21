@@ -1,6 +1,13 @@
 import styles from './Notificacoes.module.css'
 import { Link } from 'react-router-dom'
-import { Bell, ArrowRight, AlertTriangle, AlertCircle } from 'lucide-react'
+import { Bell, ArrowRight, AlertTriangle, AlertCircle, MessageCircle } from 'lucide-react'
+
+function abrirWhatsAppClinica(contato: string, clinicaNome: string, petNome: string, tipo: string) {
+  const num = contato.replace(/\D/g, '')
+  const numero = num.startsWith('55') ? num : `55${num}`
+  const msg = `Olá, ${clinicaNome}! Vi o alerta de emergência para sangue tipo ${tipo}. Meu pet *${petNome}* é doador compatível e posso comparecer. Como posso ajudar? 🐾`
+  window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank')
+}
 import { useEffect, useState } from 'react'
 import Sidebar from '../../../componentes/Sidebar/Sidebar.tsx'
 import { carregarAlertas, type Alerta } from '../../../servicos/alertas.ts'
@@ -115,6 +122,14 @@ export default function Notificacoes() {
                       <Link to="/meus-pets" className={styles.btnDestaque}>
                         Ver {n.petNome}
                       </Link>
+                      {n.clinicaContato && (
+                        <button
+                          className={styles.btnWhatsapp}
+                          onClick={() => abrirWhatsAppClinica(n.clinicaContato!, n.clinicaNome, n.petNome, tipoLabel[n.tipoSanguineo] ?? n.tipoSanguineo)}
+                        >
+                          <MessageCircle size={14} /> Responder via WhatsApp
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>

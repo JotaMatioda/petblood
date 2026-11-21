@@ -631,3 +631,19 @@
 }
 
 .btnMenu:hover { background: #F3F0ED; }
+
+.btnWhatsapp {
+  background: none;
+  border: none;
+  color: #25D366;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.btnWhatsapp:hover { background: #e8fdf0; }
+.btnWhatsapp:disabled { color: #ccc; cursor: default; }
+.btnWhatsapp:disabled:hover { background: none; }

@@ -4,6 +4,7 @@ export type Alerta = {
   especie: 'CAO' | 'GATO'
   urgencia: 'NORMAL' | 'CRITICO'
   clinicaNome: string
+  clinicaContato?: string
   clinicaLat: number | null
   clinicaLng: number | null
   raioKm: number

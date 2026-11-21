@@ -66,6 +66,7 @@ export default function NovaSolicitacao() {
         especie,
         urgencia,
         clinicaNome: usuario?.nome ?? 'Clínica',
+        clinicaContato: localStorage.getItem('petblood_clinica_whatsapp') ?? undefined,
         clinicaLat: coords ? coords[0] : null,
         clinicaLng: coords ? coords[1] : null,
         raioKm: 10,
