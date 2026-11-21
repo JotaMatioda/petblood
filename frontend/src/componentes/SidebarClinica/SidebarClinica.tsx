@@ -1,14 +1,12 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { LayoutGrid, Heart, ClipboardList, Settings, LogOut, SearchCheck } from 'lucide-react'
-import { logout, getUsuario } from '../../servicos/auth'
+import { logout } from '../../servicos/auth'
 import logo from '../../assets/LogoPetBlood.png'
 import styles from './SidebarClinica.module.css'
 
 export default function SidebarClinica() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const usuario = getUsuario()
-
   function handleLogout() {
     logout()
     navigate('/entrar')

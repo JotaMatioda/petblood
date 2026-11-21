@@ -4,12 +4,11 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import styles from './BuscaEmergencia.module.css'
 import SidebarClinica from '../../../componentes/SidebarClinica/SidebarClinica.tsx'
-import { getUsuario } from '../../../servicos/auth.ts'
 import PerfilHeaderBtn from '../../../componentes/PerfilHeaderBtn/PerfilHeaderBtn.tsx'
 import { carregarDoadores, distanciaKm } from '../../../servicos/doadores.ts'
 import {
   AlertCircle, Search, Info, MoreVertical,
-  User, MessageCircle, ChevronDown, X, Users
+  MessageCircle, ChevronDown, X, Users
 } from 'lucide-react'
 
 // Fix ícones padrão do Leaflet no Vite
@@ -98,14 +97,12 @@ function construirDoadores(centro: [number, number], raio: number): Doador[] {
 }
 
 export default function BuscaEmergencia() {
-  const usuario = getUsuario()
-
   const [especie, setEspecie] = useState('Todos')
   const [tipoSanguineo, setTipoSanguineo] = useState('DEA 1.1+')
   const [raio, setRaio] = useState(10)
   const [doadores, setDoadores] = useState<Doador[]>([])
   const [filtro, setFiltro] = useState('')
-  const [filtroStatus, setFiltroStatus] = useState<'todos' | 'confirmou' | 'aguardando' | 'sem_resposta'>('todos')
+  const [_filtroStatus, _setFiltroStatus] = useState<'todos' | 'confirmou' | 'aguardando' | 'sem_resposta'>('todos')
   const [centro, setCentro] = useState<[number, number]>([SP_LAT, SP_LNG])
   const [enderecoClin, setEnderecoClin] = useState(localStorage.getItem('petblood_clinica_endereco') ?? '')
   const [geocodificando, setGeocodificando] = useState(false)

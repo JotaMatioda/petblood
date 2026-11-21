@@ -14,7 +14,6 @@ const TIPOS_FELINO = ['Tipo A', 'Tipo B', 'Tipo AB']
 export default function EditarBolsa() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
-  const usuario = getUsuario()
 
   const bolsas = carregarBolsas()
   const bolsa = bolsas.find(b => b.id === decodeURIComponent(id ?? ''))

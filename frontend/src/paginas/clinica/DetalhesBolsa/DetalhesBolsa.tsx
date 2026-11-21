@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import styles from './DetalhesBolsa.module.css'
 import SidebarClinica from '../../../componentes/SidebarClinica/SidebarClinica.tsx'
-import { carregarBolsas, salvarBolsas, type Bolsa } from '../Inventario/Inventario.tsx'
+import { carregarBolsas, type Bolsa } from '../Inventario/Inventario.tsx'
 import PerfilHeaderBtn from '../../../componentes/PerfilHeaderBtn/PerfilHeaderBtn.tsx'
 import {
   ChevronLeft, Droplets, Calendar, User, FileText,
