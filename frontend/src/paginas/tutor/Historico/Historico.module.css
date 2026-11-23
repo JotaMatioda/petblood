@@ -282,15 +282,66 @@
 
 .statusConcluido { background: #DCFCE7; color: #16A34A; }
 .statusAgendado  { background: #FEF9C3; color: #B45309; }
+.statusUrgente   { background: #FEE2E2; color: #991B1B; }
+
+.tipoBadge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: #FEE2E2;
+  color: #C0392B;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.semInfo { color: var(--texto-medio); }
+
+.vazioCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: var(--texto-medio);
+  text-align: center;
+}
+
+.vazioCenter strong { color: var(--texto-escuro); font-size: 1rem; }
+.vazioCenter p { margin: 0; font-size: 0.875rem; }
+
+.btnCadastrar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: var(--vermelho);
+  color: var(--branco);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 4px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner { animation: spin 1s linear infinite; }
 
 .btnAcoes {
   background: transparent;
-  color: var(--texto-claro);
-  padding: 4px;
+  color: var(--vermelho);
+  padding: 4px 10px;
   border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
   transition: background 0.2s;
+  border: none;
+  cursor: pointer;
 }
-.btnAcoes:hover { background: var(--cinza-medio); color: var(--texto-escuro); }
+.btnAcoes:hover { background: #FEE2E2; }
 
 /* ===== PAGINAÇÃO ===== */
 .paginacao {

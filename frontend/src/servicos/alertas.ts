@@ -12,18 +12,13 @@ export type Alerta = {
   criadoEm: string
 }
 
-function chaveAlertas() {
-  try {
-    const u = JSON.parse(localStorage.getItem('usuario') ?? '{}')
-    return `petblood_alertas_${u.id ?? 'guest'}`
-  } catch { return 'petblood_alertas_guest' }
-}
+const CHAVE_ALERTAS = 'petblood_alertas'
 
 export function carregarAlertas(): Alerta[] {
-  try { return JSON.parse(localStorage.getItem(chaveAlertas()) ?? '[]') } catch { return [] }
+  try { return JSON.parse(localStorage.getItem(CHAVE_ALERTAS) ?? '[]') } catch { return [] }
 }
 
 export function salvarAlerta(a: Alerta) {
   const lista = carregarAlertas()
-  localStorage.setItem(chaveAlertas(), JSON.stringify([a, ...lista]))
+  localStorage.setItem(CHAVE_ALERTAS, JSON.stringify([a, ...lista]))
 }

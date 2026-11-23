@@ -1,179 +1,237 @@
 import styles from './Historico.module.css'
+import { useEffect, useState } from 'react'
 import {
-  Filter, Download, Heart, Star, Droplets,
-  Syringe, CalendarCheck, MoreVertical,
-  ChevronLeft, ChevronRight as ChevronR
+  Heart, Droplets, PawPrint, Loader2, Plus
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import Sidebar from '../../../componentes/Sidebar/Sidebar.tsx'
+import { listarPets, type Pet } from '../../../servicos/pets.ts'
+import { carregarDoadores } from '../../../servicos/doadores.ts'
+import { carregarAlertas, type Alerta } from '../../../servicos/alertas.ts'
 
-const atividades = [
-  { data: '15 Out, 2023', hora: '09:30 AM', pet: 'Bento', atividade: 'Doação de Sangue', icone: 'doacao', status: 'Concluído' },
-  { data: '22 Out, 2023', hora: '02:15 PM', pet: 'Luna',  atividade: 'Vacinação Anual',  icone: 'vacina',  status: 'Agendado'  },
-  { data: '05 Set, 2023', hora: '11:00 AM', pet: 'Bento', atividade: 'Check-up Geral',   icone: 'checkup', status: 'Concluído' },
-  { data: '12 Ago, 2023', hora: '10:45 AM', pet: 'Luna',  atividade: 'Doação de Sangue', icone: 'doacao',  status: 'Concluído' },
-]
+const tipoLabel: Record<string, string> = {
+  DEA_1_1_POS: 'DEA 1.1+', DEA_1_1_NEG: 'DEA 1.1-',
+  DEA_3: 'DEA 3', DEA_4: 'DEA 4', DEA_5: 'DEA 5', DEA_7: 'DEA 7',
+  DAL: 'Dal', DESCONHECIDO: 'Desconhecido',
+  TIPO_A: 'Tipo A', TIPO_B: 'Tipo B', TIPO_AB: 'Tipo AB',
+}
 
-const metas = [
-  { label: 'Doações este ano', sub: 'Bento', valor: 3, total: 4, cor: '#C0392B' },
-  { label: 'Vidas impactadas', sub: 'Luna',  valor: 12, total: 20, cor: '#2563EB' },
-]
+function formatarData(iso: string) {
+  return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })
+}
 
 export default function Historico() {
+  const [pets, setPets] = useState<Pet[]>([])
+  const [carregando, setCarregando] = useState(true)
+  const [alertasMatch, setAlertasMatch] = useState<(Alerta & { petNome: string })[]>([])
+
+  useEffect(() => {
+    listarPets()
+      .then(lista => {
+        setPets(lista)
+        const doadores = carregarDoadores()
+        const alertas = carregarAlertas()
+        const matches: (Alerta & { petNome: string })[] = []
+        for (const alerta of alertas) {
+          for (const d of doadores) {
+            if (d.especie === alerta.especie && d.tipoSanguineo === alerta.tipoSanguineo) {
+              if (!matches.find(m => m.id === alerta.id && m.petNome === d.nome)) {
+                matches.push({ ...alerta, petNome: d.nome })
+              }
+            }
+          }
+        }
+        setAlertasMatch(matches)
+      })
+      .catch(() => setPets([]))
+      .finally(() => setCarregando(false))
+  }, [])
+
+  const doadores = carregarDoadores()
+  const totalDoadores = doadores.length
+
   return (
     <div className={styles.pagina}>
-
       <Sidebar />
 
-      {/* Conteúdo */}
       <main className={styles.main}>
-        {/* Cabeçalho */}
         <div className={styles.cabecalho}>
           <div>
             <h1 className={styles.titulo}>Histórico & Atividades</h1>
-            <p className={styles.subtitulo}>Gerencie a jornada de saúde e doações de seus heróis.</p>
-          </div>
-          <div className={styles.cabecalhoAcoes}>
-            <button className={styles.btnFiltrar}><Filter size={16} /> Filtrar</button>
-            <button className={styles.btnExportar}><Download size={16} /> Exportar PDF</button>
+            <p className={styles.subtitulo}>Acompanhe a jornada de saúde e doações dos seus pets.</p>
           </div>
         </div>
 
-        {/* Bloco superior */}
-        <div className={styles.blocoTopo}>
-          {/* Card de estatísticas */}
-          <div className={styles.cardStats}>
-            <span className={styles.statsLabel}>ESTATÍSTICAS DE VIDA</span>
-            <div className={styles.statsNumeros}>
-              <div className={styles.statsNumerosEsquerda}>
-                <div className={styles.statItem}>
-                  <strong>24</strong>
-                  <span>Vidas Salvas</span>
-                </div>
-                <div className={styles.statItem}>
-                  <strong>08</strong>
-                  <span>Doações Realizadas</span>
-                </div>
-                <div className={styles.statItem}>
-                  <strong>02</strong>
-                  <span>Pets Ativos</span>
-                </div>
-              </div>
-              <div className={styles.statsCoracao}>
-                <Heart size={64} color="#FADBD8" fill="#FADBD8" />
-              </div>
-            </div>
-            <div className={styles.statsHeroi}>
-              <Star size={16} color="#C0392B" fill="#C0392B" />
-              <span>Classificação: <strong>Herói Nível Ouro</strong></span>
-            </div>
+        {carregando ? (
+          <div className={styles.vazioCenter}>
+            <Loader2 size={32} color="#C0392B" className={styles.spinner} />
+            <p>Carregando...</p>
           </div>
-
-          {/* Card próxima doação */}
-          <div className={styles.cardProximaDoacao}>
-            <div className={styles.proximaDoacaoBadge}>
-              <Droplets size={14} /> Próxima Doação
-            </div>
-            <div className={styles.proximaDoacaoIcone}>
-              <Droplets size={28} color="#fff" />
-            </div>
-            <h3 className={styles.proximaDoacaoTitulo}>Bento está apto!</h3>
-            <p className={styles.proximaDoacaoTexto}>
-              Sua última doação foi há 90 dias. Ele já pode ajudar outro amigo hoje.
-            </p>
-            <button className={styles.btnAgendar}>Agendar para Bento</button>
-          </div>
-        </div>
-
-        {/* Tabela de atividades */}
-        <div className={styles.cardTabela}>
-          <div className={styles.tabelaCabecalho}>
-            <h2 className={styles.tabelaTitulo}>Atividades Recentes</h2>
-            <span className={styles.tabelaInfo}>Mostrando 1-10 de 42 registros</span>
-          </div>
-
-          <div className={styles.tabelaHeader}>
-            <span>DATA</span>
-            <span>PET</span>
-            <span>ATIVIDADE</span>
-            <span>STATUS</span>
-            <span>AÇÕES</span>
-          </div>
-          {atividades.map((a, i) => (
-            <div key={i} className={styles.tabelaLinha}>
-              <div>
-                <span className={styles.data}>{a.data}</span>
-                <span className={styles.hora}>{a.hora}</span>
-              </div>
-              <div className={styles.petCell}>
-                <div className={styles.petAvatar}>{a.pet[0]}</div>
-                {a.pet}
-              </div>
-              <div className={styles.atividadeCell}>
-                {a.icone === 'doacao'  && <Droplets size={15} color="#C0392B" />}
-                {a.icone === 'vacina'  && <Syringe size={15} color="#B45309" />}
-                {a.icone === 'checkup' && <CalendarCheck size={15} color="#2563EB" />}
-                {a.atividade}
-              </div>
-              <div>
-                <span className={`${styles.status} ${a.status === 'Concluído' ? styles.statusConcluido : styles.statusAgendado}`}>
-                  {a.status}
-                </span>
-              </div>
-              <div>
-                <button className={styles.btnAcoes}><MoreVertical size={17} /></button>
-              </div>
-            </div>
-          ))}
-
-          {/* Paginação */}
-          <div className={styles.paginacao}>
-            <button className={styles.btnPag}><ChevronLeft size={16} /> Anterior</button>
-            <div className={styles.paginas}>
-              <button className={`${styles.paginaBotao} ${styles.paginaAtiva}`}>1</button>
-              <button className={styles.paginaBotao}>2</button>
-              <button className={styles.paginaBotao}>3</button>
-            </div>
-            <button className={styles.btnPag}>Próximo <ChevronR size={16} /></button>
-          </div>
-        </div>
-
-        {/* Bloco inferior */}
-        <div className={styles.blocoInferior}>
-          {/* Metas de saúde */}
-          <div className={styles.cardMetas}>
-            <h2 className={styles.metasTitulo}>Metas de Saúde</h2>
-            <div className={styles.metasLista}>
-              {metas.map((m, i) => (
-                <div key={i} className={styles.metaItem}>
-                  <div className={styles.metaHeader}>
-                    <span className={styles.metaLabel}>{m.label}</span>
-                    <span className={styles.metaValor}>{m.valor}/{m.total}</span>
+        ) : (
+          <>
+            {/* Stats */}
+            <div className={styles.blocoTopo}>
+              <div className={styles.cardStats}>
+                <span className={styles.statsLabel}>RESUMO DOS PETS</span>
+                <div className={styles.statsNumeros}>
+                  <div className={styles.statsNumerosEsquerda}>
+                    <div className={styles.statItem}>
+                      <strong>{pets.length}</strong>
+                      <span>Pets cadastrados</span>
+                    </div>
+                    <div className={styles.statItem}>
+                      <strong>{totalDoadores}</strong>
+                      <span>Aptos a doar</span>
+                    </div>
+                    <div className={styles.statItem}>
+                      <strong>{alertasMatch.length}</strong>
+                      <span>Alertas compatíveis</span>
+                    </div>
                   </div>
-                  <span className={styles.metaSub}>{m.sub}</span>
-                  <div className={styles.barraFundo}>
-                    <div
-                      className={styles.barraPreenchimento}
-                      style={{ width: `${(m.valor / m.total) * 100}%`, background: m.cor }}
-                    />
+                  <div className={styles.statsCoracao}>
+                    <Heart size={64} color="#FADBD8" fill="#FADBD8" />
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Insight de saúde */}
-          <div className={styles.cardInsight}>
-            <span className={styles.insightLabel}>INSIGHT DE SAÚDE</span>
-            <div className={styles.insightCorpo}>
-              <p className={styles.insightTexto}>
-                "Bento manteve níveis ideais de hemoglobina em todas as doações deste ano. Continue com a dieta recomendada!"
-              </p>
-              <div className={styles.insightIcone}>
-                <Droplets size={52} color="#FADBD8" fill="#FADBD8" />
               </div>
+
+              {totalDoadores > 0 ? (
+                <div className={styles.cardProximaDoacao}>
+                  <div className={styles.proximaDoacaoBadge}>
+                    <Droplets size={14} /> Pets Doadores
+                  </div>
+                  <div className={styles.proximaDoacaoIcone}>
+                    <Droplets size={28} color="#fff" />
+                  </div>
+                  <h3 className={styles.proximaDoacaoTitulo}>{totalDoadores} pet{totalDoadores > 1 ? 's' : ''} apto{totalDoadores > 1 ? 's' : ''}!</h3>
+                  <p className={styles.proximaDoacaoTexto}>
+                    Seus pets estão cadastrados como doadores e podem ser encontrados em emergências.
+                  </p>
+                  <Link to="/meus-pets" className={styles.btnAgendar}>Ver meus pets</Link>
+                </div>
+              ) : (
+                <div className={styles.cardProximaDoacao}>
+                  <div className={styles.proximaDoacaoBadge}>
+                    <Heart size={14} /> Seja um doador
+                  </div>
+                  <div className={styles.proximaDoacaoIcone}>
+                    <Heart size={28} color="#fff" />
+                  </div>
+                  <h3 className={styles.proximaDoacaoTitulo}>Nenhum doador ainda</h3>
+                  <p className={styles.proximaDoacaoTexto}>
+                    Cadastre um pet e marque-o como disponível para doação para ajudar clínicas em emergências.
+                  </p>
+                  <Link to="/cadastrar-pet" className={styles.btnAgendar}>Cadastrar pet</Link>
+                </div>
+              )}
             </div>
-          </div>
-        </div>
+
+            {/* Pets cadastrados */}
+            {pets.length > 0 && (
+              <div className={styles.cardTabela}>
+                <div className={styles.tabelaCabecalho}>
+                  <h2 className={styles.tabelaTitulo}>Meus Pets</h2>
+                  <span className={styles.tabelaInfo}>{pets.length} pet{pets.length > 1 ? 's' : ''} cadastrado{pets.length > 1 ? 's' : ''}</span>
+                </div>
+
+                <div className={styles.tabelaHeader}>
+                  <span>PET</span>
+                  <span>ESPÉCIE / RAÇA</span>
+                  <span>TIPO SANGUÍNEO</span>
+                  <span>DOADOR</span>
+                  <span></span>
+                </div>
+
+                {pets.map(pet => {
+                  const doador = doadores.find(d => String(d.petId) === String(pet.id))
+                  const foto = localStorage.getItem(`petblood_pet_foto_${pet.id}`)
+                  return (
+                    <div key={pet.id} className={styles.tabelaLinha}>
+                      <div className={styles.petCell}>
+                        <div className={styles.petAvatar} style={{ background: pet.especie === 'CAO' ? '#D4A574' : '#7C9CBF' }}>
+                          {foto
+                            ? <img src={foto} alt={pet.nome} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
+                            : <PawPrint size={14} color="rgba(255,255,255,0.8)" />
+                          }
+                        </div>
+                        {pet.nome}
+                      </div>
+                      <div>
+                        {pet.especie === 'CAO' ? 'Cão' : 'Gato'}
+                        {pet.raca ? ` • ${pet.raca}` : ''}
+                      </div>
+                      <div>
+                        {pet.tipoSanguineo
+                          ? <span className={styles.tipoBadge}>{tipoLabel[pet.tipoSanguineo] ?? pet.tipoSanguineo}</span>
+                          : <span className={styles.semInfo}>—</span>
+                        }
+                      </div>
+                      <div>
+                        {doador
+                          ? <span className={`${styles.status} ${styles.statusConcluido}`}>Ativo</span>
+                          : <span className={`${styles.status} ${styles.statusAgendado}`}>Não cadastrado</span>
+                        }
+                      </div>
+                      <div>
+                        <Link to={`/pets/${pet.id}`} className={styles.btnAcoes}>Ver</Link>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
+            {/* Alertas recebidos */}
+            {alertasMatch.length > 0 && (
+              <div className={styles.cardTabela}>
+                <div className={styles.tabelaCabecalho}>
+                  <h2 className={styles.tabelaTitulo}>Alertas Compatíveis</h2>
+                  <span className={styles.tabelaInfo}>{alertasMatch.length} alerta{alertasMatch.length > 1 ? 's' : ''}</span>
+                </div>
+
+                <div className={styles.tabelaHeader}>
+                  <span>DATA</span>
+                  <span>CLÍNICA</span>
+                  <span>SEU PET</span>
+                  <span>TIPO SANGUÍNEO</span>
+                  <span>URGÊNCIA</span>
+                </div>
+
+                {alertasMatch.map((a, i) => (
+                  <div key={i} className={styles.tabelaLinha}>
+                    <div>
+                      <span className={styles.data}>{formatarData(a.criadoEm)}</span>
+                    </div>
+                    <div>{a.clinicaNome}</div>
+                    <div className={styles.petCell}>
+                      <div className={styles.petAvatar}>{a.petNome[0]}</div>
+                      {a.petNome}
+                    </div>
+                    <div>
+                      <span className={styles.tipoBadge}>{tipoLabel[a.tipoSanguineo] ?? a.tipoSanguineo}</span>
+                    </div>
+                    <div>
+                      <span className={`${styles.status} ${a.urgencia === 'CRITICO' ? styles.statusUrgente : styles.statusAgendado}`}>
+                        {a.urgencia === 'CRITICO' ? 'Crítico' : 'Normal'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Estado vazio geral */}
+            {pets.length === 0 && (
+              <div className={styles.vazioCenter}>
+                <PawPrint size={48} color="#C0392B" strokeWidth={1.5} />
+                <strong>Nenhum pet cadastrado</strong>
+                <p>Cadastre seu primeiro pet para acompanhar o histórico de doações.</p>
+                <Link to="/cadastrar-pet" className={styles.btnCadastrar}>
+                  <Plus size={15} /> Cadastrar pet
+                </Link>
+              </div>
+            )}
+          </>
+        )}
       </main>
     </div>
   )

@@ -3,17 +3,30 @@ import { Link, Navigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import {
   PawPrint, Bell,
-  Plus, Heart, CheckCircle2, ChevronRight, Sparkles, Loader2
+  Plus, Heart, CheckCircle2, ChevronRight, Sparkles, Loader2,
+  AlertTriangle, AlertCircle
 } from 'lucide-react'
 import Sidebar from '../../../componentes/Sidebar/Sidebar.tsx'
 import { getUsuario } from '../../../servicos/auth.ts'
 import { listarPets, type Pet } from '../../../servicos/pets.ts'
+import { carregarAlertas, type Alerta } from '../../../servicos/alertas.ts'
+import { carregarDoadores } from '../../../servicos/doadores.ts'
 
 const tipoSanguineoLabel: Record<string, string> = {
   DEA_1_1_POS: 'DEA 1.1+', DEA_1_1_NEG: 'DEA 1.1-',
   DEA_3: 'DEA 3', DEA_4: 'DEA 4', DEA_5: 'DEA 5', DEA_7: 'DEA 7',
   DAL: 'Dal', DESCONHECIDO: 'Desc.',
   TIPO_A: 'Tipo A', TIPO_B: 'Tipo B', TIPO_AB: 'Tipo AB',
+}
+
+function tempoRelativo(iso: string) {
+  const diff = Date.now() - new Date(iso).getTime()
+  const min = Math.floor(diff / 60000)
+  if (min < 1) return 'agora mesmo'
+  if (min < 60) return `${min} min atrás`
+  const h = Math.floor(min / 60)
+  if (h < 24) return `${h}h atrás`
+  return `${Math.floor(h / 24)} dias atrás`
 }
 
 export default function Dashboard() {
@@ -24,16 +37,34 @@ export default function Dashboard() {
 
   const [pets, setPets] = useState<Pet[]>([])
   const [carregando, setCarregando] = useState(true)
+  const [alertasMatch, setAlertasMatch] = useState<(Alerta & { petNome: string })[]>([])
 
   useEffect(() => {
     listarPets()
-      .then(setPets)
+      .then(lista => {
+        setPets(lista)
+        // Calcula alertas que batem com pets doadores deste tutor
+        const doadores = carregarDoadores()
+        const alertas = carregarAlertas()
+        const matches: (Alerta & { petNome: string })[] = []
+        for (const alerta of alertas) {
+          for (const d of doadores) {
+            if (d.especie === alerta.especie && d.tipoSanguineo === alerta.tipoSanguineo) {
+              if (!matches.find(m => m.id === alerta.id && m.petNome === d.nome)) {
+                matches.push({ ...alerta, petNome: d.nome })
+              }
+            }
+          }
+        }
+        setAlertasMatch(matches)
+      })
       .catch(() => setPets([]))
       .finally(() => setCarregando(false))
   }, [])
 
   const totalPets = pets.length
   const totalDisponiveis = pets.filter(p => p.status === 'DISPONIVEL').length
+  const totalDoadores = carregarDoadores().length
 
   return (
     <div className={styles.pagina}>
@@ -71,9 +102,9 @@ export default function Dashboard() {
               <Heart size={20} color="#2563EB" />
             </div>
             <div className={styles.statInfo}>
-              <span className={styles.statLabel}>Geral</span>
-              <strong className={styles.statValor}>0</strong>
-              <span className={styles.statDesc}>Doações realizadas</span>
+              <span className={styles.statLabel}>Doadores</span>
+              <strong className={styles.statValor}>{carregando ? '—' : totalDoadores}</strong>
+              <span className={styles.statDesc}>Pets aptos a doar</span>
             </div>
           </div>
 
@@ -94,8 +125,8 @@ export default function Dashboard() {
             </div>
             <div className={styles.statInfo}>
               <span className={styles.statLabel}>Alertas</span>
-              <strong className={styles.statValor}>0</strong>
-              <span className={styles.statDesc}>Alertas recebidos</span>
+              <strong className={styles.statValor}>{carregando ? '—' : alertasMatch.length}</strong>
+              <span className={styles.statDesc}>Compatíveis agora</span>
             </div>
           </div>
         </div>
@@ -163,19 +194,39 @@ export default function Dashboard() {
             )}
           </section>
 
-          {/* Atividade Recente */}
+          {/* Alertas compatíveis */}
           <section className={styles.secao}>
             <div className={styles.secaoCabecalho}>
-              <h2 className={styles.secaoTitulo}>Atividade Recente</h2>
+              <h2 className={styles.secaoTitulo}>Alertas de Emergência</h2>
+              <Link to="/notificacoes" className={styles.verTodos}>
+                Ver todos <ChevronRight size={14} />
+              </Link>
             </div>
 
-            <div className={styles.vazio}>
-              <div className={`${styles.vazioIcone} ${styles.vazioIconeAzul}`}>
-                <Bell size={28} color="#2563EB" />
+            {alertasMatch.length === 0 ? (
+              <div className={styles.vazio}>
+                <div className={`${styles.vazioIcone} ${styles.vazioIconeAzul}`}>
+                  <Bell size={28} color="#2563EB" />
+                </div>
+                <strong className={styles.vazioTitulo}>Nenhum alerta no momento</strong>
+                <p className={styles.vazioTexto}>Quando uma clínica precisar de um doador compatível com seus pets, aparecerá aqui.</p>
               </div>
-              <strong className={styles.vazioTitulo}>Nenhuma atividade ainda</strong>
-              <p className={styles.vazioTexto}>Quando houver alertas de doação ou atualizações, eles aparecerão aqui.</p>
-            </div>
+            ) : (
+              <div className={styles.alertasLista}>
+                {alertasMatch.slice(0, 3).map(a => (
+                  <div key={`${a.id}_${a.petNome}`} className={`${styles.alertaItem} ${a.urgencia === 'CRITICO' ? styles.alertaUrgente : styles.alertaNormal}`}>
+                    <div className={styles.alertaIcone}>
+                      {a.urgencia === 'CRITICO' ? <AlertTriangle size={16} /> : <AlertCircle size={16} />}
+                    </div>
+                    <div className={styles.alertaConteudo}>
+                      <strong>{a.clinicaNome}</strong> precisa de {tipoSanguineoLabel[a.tipoSanguineo] ?? a.tipoSanguineo} — seu pet <strong>{a.petNome}</strong> é compatível!
+                      <span className={styles.alertaTempo}>{tempoRelativo(a.criadoEm)}</span>
+                    </div>
+                    <Link to="/notificacoes" className={styles.alertaBtn}>Ver</Link>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         </div>
       </main>

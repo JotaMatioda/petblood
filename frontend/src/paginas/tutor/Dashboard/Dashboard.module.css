@@ -599,3 +599,60 @@
 .spinner {
   animation: spin 1s linear infinite;
 }
+
+/* Alertas de emergência */
+.alertasLista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alertaItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid;
+  font-size: 0.85rem;
+}
+
+.alertaUrgente {
+  background: #fff5f5;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.alertaNormal {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1e40af;
+}
+
+.alertaIcone {
+  flex-shrink: 0;
+}
+
+.alertaConteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.alertaTempo {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.alertaBtn {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: var(--vermelho);
+  color: var(--branco);
+}
+
