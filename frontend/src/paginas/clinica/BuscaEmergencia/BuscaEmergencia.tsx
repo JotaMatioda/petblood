@@ -5,7 +5,8 @@ import 'leaflet/dist/leaflet.css'
 import styles from './BuscaEmergencia.module.css'
 import SidebarClinica from '../../../componentes/SidebarClinica/SidebarClinica.tsx'
 import PerfilHeaderBtn from '../../../componentes/PerfilHeaderBtn/PerfilHeaderBtn.tsx'
-import { carregarDoadores, distanciaKm } from '../../../servicos/doadores.ts'
+import { distanciaKm } from '../../../servicos/doadores.ts'
+import api from '../../../servicos/api.ts'
 import {
   AlertCircle, Search, Info,
   MessageCircle, ChevronDown, X, Users
@@ -85,26 +86,38 @@ function mensagemEmergencia(doadorNome: string, tipo: string) {
 const SP_LAT = -23.5505
 const SP_LNG = -46.6333
 
-function construirDoadores(centro: [number, number], raio: number): Doador[] {
-  return carregarDoadores()
-    .map(p => {
-      const dist = distanciaKm(centro[0], centro[1], p.lat, p.lng)
-      return {
-        id: String(p.petId),
-        nome: p.nome,
-        especie: p.especie,
-        raca: p.raca,
-        peso: p.peso,
-        contato: p.contato,
-        distanciaNum: dist,
-        distancia: dist < 1 ? `${Math.round(dist * 1000)}m` : `${dist.toFixed(1)} km`,
-        lat: p.lat,
-        lng: p.lng,
-        selecionado: false,
-      }
-    })
-    .filter(d => d.distanciaNum <= raio)
-    .sort((a, b) => a.distanciaNum - b.distanciaNum)
+type DoadorAPI = {
+  id: number
+  nome: string
+  especie: string
+  raca: string
+  peso: number | null
+  tipoSanguineo: string | null
+  tutorNome: string
+  tutorTelefone: string | null
+}
+
+async function buscarDoadoresAPI(centro: [number, number], raio: number): Promise<Doador[]> {
+  try {
+    const { data } = await api.get<DoadorAPI[]>('/pets/doadores')
+    // Como os pets do banco não têm lat/lng, usamos a localização da clínica como referência
+    // e distribuímos os doadores em distância 0 (mesma cidade assumida)
+    return data.map(p => ({
+      id: String(p.id),
+      nome: p.nome,
+      especie: p.especie,
+      raca: p.raca ?? '',
+      peso: p.peso ? `${p.peso} kg` : '-',
+      contato: p.tutorTelefone ?? '',
+      distanciaNum: 0,
+      distancia: 'Localização não informada',
+      lat: centro[0] + (Math.random() - 0.5) * 0.05,
+      lng: centro[1] + (Math.random() - 0.5) * 0.05,
+      selecionado: false,
+    }))
+  } catch {
+    return []
+  }
 }
 
 export default function BuscaEmergencia() {
@@ -122,20 +135,22 @@ export default function BuscaEmergencia() {
     const end = localStorage.getItem('petblood_clinica_endereco') ?? ''
     setEnderecoClin(end)
     if (!end) {
-      setDoadores(construirDoadores([SP_LAT, SP_LNG], raio))
+      buscarDoadoresAPI([SP_LAT, SP_LNG], raio).then(setDoadores)
       return
     }
     setGeocodificando(true)
-    geocodificar(end).then(coords => {
+    geocodificar(end).then(async coords => {
       const c = coords ?? [SP_LAT, SP_LNG] as [number, number]
       setCentro(c)
-      setDoadores(construirDoadores(c, raio))
+      const lista = await buscarDoadoresAPI(c, raio)
+      setDoadores(lista)
       setGeocodificando(false)
     })
   }, [])
 
-  function buscar() {
-    setDoadores(construirDoadores(centro, raio))
+  async function buscar() {
+    const lista = await buscarDoadoresAPI(centro, raio)
+    setDoadores(lista)
   }
 
   const selecionados = doadores.filter(d => d.selecionado)

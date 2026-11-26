@@ -1,7 +1,9 @@
 package com.petblood.api.controller;
 
+import com.petblood.api.dto.DoadorResponse;
 import com.petblood.api.dto.PetRequest;
 import com.petblood.api.model.Pet;
+import com.petblood.api.repository.PetRepository;
 import com.petblood.api.service.PetService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,16 @@ import java.util.List;
 public class PetController {
 
     private final PetService petService;
+    private final PetRepository petRepository;
+
+    @GetMapping("/doadores")
+    public ResponseEntity<List<DoadorResponse>> listarDoadores() {
+        List<DoadorResponse> doadores = petRepository.findByStatus(Pet.Status.DISPONIVEL)
+                .stream()
+                .map(DoadorResponse::de)
+                .toList();
+        return ResponseEntity.ok(doadores);
+    }
 
     @PostMapping
     public ResponseEntity<Pet> cadastrar(@Valid @RequestBody PetRequest request,
